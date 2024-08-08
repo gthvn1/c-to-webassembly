@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-<script type="module">
-  async function init() {
-    const { instance } = await WebAssembly.instantiateStreaming(
-      fetch("./game.wasm")
-    );
-    console.log(instance.exports.add(6, 6));
-  }
-  init();
-</script>
+<html>
+  <head>
+    <title>Testing Web Assembly</title>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script src="main.js"></script>
+  </body>
+</html>
