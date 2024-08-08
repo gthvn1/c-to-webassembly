@@ -35,6 +35,13 @@ llc \
 echo "You now have a valid WebAssembly module called add.o that can be inspected using:"
 echo "wasm-objdump -x add.o"
 
+# NOTE: The object file is a valid WASM module but it lacks some information like:
+#   - The entry point,
+#   - Some Imported/Exported function because you may need others object files
+#   - Some Global variables and correct memory layout
+# You need to run another link step to produce a WASM module with needed glue that can be run
+# on web assembly runtime and so in the browser.
+
 # Step three: linking
 # Tool: LLVM linker for webassembly (wasm-ld)
 # Input file: add.o
