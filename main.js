@@ -10,18 +10,17 @@ function draw_rectangle(x, y, w, h) {
   ctx.fillRect(x, y, w, h);
 }
 
-// We import a function for drawing a rectangle so we can call it
-// from our wasm module
-const wasm = WebAssembly.instantiateStreaming(
-  fetch("./game.wasm"),
-  {
+// We import a function for drawing a rectangle so we can call it from our wasm module:
+// https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/instantiateStreaming_static
+const importObject = {
     env: {
-      draw_rectangle
+      draw_rectangle,
     }
+};
+
+WebAssembly.instantiateStreaming(fetch("./game.wasm"), importObject).then(
+  (w) => {
+    console.log(w.instance.exports.add(6, 6));
+    w.instance.exports.game_loop();
   }
 );
-
-wasm.then((w) => {
-  console.log(w.instance.exports.add(6, 6));
-  w.instance.exports.game_loop();
-});
