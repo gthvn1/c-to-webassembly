@@ -1,4 +1,4 @@
-add.ll
-add.o
-add.s
-add.wasm
+game.ll
+game.o
+game.s
+game.wasm

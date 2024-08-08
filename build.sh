@@ -2,7 +2,7 @@
 
 usage() {
 	echo "Usage: $0 { all | opti | start | clean }"
-	echo "  all: generate all intermediate format add.ll, add.o and add.wasm"
+	echo "  all: generate all intermediate format game.ll, game.o and game.wasm"
 	echo "  opti: produce on optimized wasm module that can be run in browser"
 	echo "  start: build wasm module and start python http server"
 	echo "  clean: remove generated files"
@@ -15,8 +15,8 @@ usage() {
 all() {
 	# First step: Turn or C code into LLVM IR
 	# Tool: front-end compiler (clang)
-	# Input file: add.c
-	# Output file: add.ll
+	# Input file: game.c
+	# Output file: game.ll
 	# Options are:
 	#   - Target WebAssembly
 	#   - Emit LLVM IR (instead of host machine code)
@@ -27,21 +27,21 @@ all() {
 		-emit-llvm \
 		-c \
 		-S \
-		add.c
+		game.c
 
-	# Step two: turing our add.ll file into an object file
+	# Step two: turing our game.ll file into an object file
 	# Tool: LLVM backend compiler (llc)
-	# Input file: add.ll
-	# Output file: add.o
+	# Input file: game.ll
+	# Output file: game.o
 	# Options are:
 	#   - Target webassembly
 	#   - Output an object file
-	# It will produce an add.o file that is a valid WebAssembly module that contains
+	# It will produce an game.o file that is a valid WebAssembly module that contains
 	# all the compiled code of our C file.
 	llc \
 		-march=wasm32 \
 		-filetype=obj \
-		add.ll
+		game.ll
 
 	# NOTE: The object file is a valid WASM module but it lacks some information like:
 	#   - The entry point,
@@ -52,22 +52,22 @@ all() {
 
 	# Step three: linking
 	# Tool: LLVM linker for webassembly (wasm-ld)
-	# Input file: add.o
-	# Output file: add.wasm
+	# Input file: game.o
+	# Output file: game.wasm
 	# Options are:
 	#   - We don't have an entry function like main
 	#   - Export everything
-	#   - output will be add.wasm
+	#   - output will be game.wasm
 	wasm-ld \
 		--no-entry \
 		--export-all \
-		-o add.wasm \
-		add.o
+		-o game.wasm \
+		game.o
 
 	echo "This step has generated:"
-	echo "  - add.ll: LLVM intermediate representation"
-	echo "  - add.o: a wasm module (object file see the note in the build.sh)"
-	echo "  - add.wasm: a wasm module that can be run in the browser"
+	echo "  - game.ll: LLVM intermediate representation"
+	echo "  - game.o: a wasm module (object file see the note in the build.sh)"
+	echo "  - game.wasm: a wasm module that can be run in the browser"
 }
 
 opti() {
@@ -91,10 +91,10 @@ opti() {
 		-Wl,--no-entry \
 		-Wl,--export-all \
 		-Wl,--lto-O3 \
-		-o add.wasm add.c
+		-o game.wasm game.c
 
 	echo "This step has generated:"
-	echo "  - add.wasm: a wasm module that can be run in the browser"
+	echo "  - game.wasm: a wasm module that can be run in the browser"
 }
 
 # We can pass a step argument:
@@ -110,7 +110,7 @@ start)
 	python3 -m http.server
 	;;
 clean)
-	rm -f add.ll add.o add.wasm
+	rm -f game.ll game.o game.wasm
 	;;
 *)
 	echo "Invalid option: $1"
