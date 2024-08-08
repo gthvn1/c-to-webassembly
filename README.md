@@ -1,8 +1,17 @@
 # c-to-webassembly
 
-- Follow the really cool blog from [surma](https://surma.dev/things/c-to-webassembly/)
+- Work: Following the really cool blog from [surma](https://surma.dev/things/c-to-webassembly/)
+  - Step1: (tagged step1)
+    - First we will understand how we are generating wasm from C
+    - Start with a simple function add.c
+  - Step2: (not tagged yet)
+    - Turned our simple function into something more complex
+    - WIP...
+
 - Requirements:
   - llvm
+
+- Usage:
 ```sh
 usage() {
 	echo "Usage: $0 { all | opti | start | clean }"
