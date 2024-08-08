@@ -19,8 +19,8 @@ const importObject = {
 };
 
 // We are managing key pressed with:
-// https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event
-window.addEventListener("keypress", logKey);
+// https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
+window.addEventListener("keydown", logKey);
 
 function logKey(e) {
   console.log(e);
