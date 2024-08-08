@@ -18,6 +18,14 @@ const importObject = {
     }
 };
 
+// We are managing key pressed with:
+// https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event
+window.addEventListener("keypress", logKey);
+
+function logKey(e) {
+  console.log(e);
+}
+
 // We are doing animation using requestAnimationFrame:
 // https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame
 // We are animating the canvas...
