@@ -57,10 +57,12 @@ all() {
 	# Options are:
 	#   - We don't have an entry function like main
 	#   - Export everything
+	#   - Allow undefined symbol so it can be provided using import
 	#   - output will be game.wasm
 	wasm-ld \
 		--no-entry \
 		--export-all \
+		--allow-undefined \
 		-o game.wasm \
 		game.o
 
@@ -80,6 +82,7 @@ opti() {
 	#   - We are using Wl to pass option to the linker.
 	#     - no entry point
 	#     - export all
+	#     - allow undefined symbol
 	#     - use link-time optimizations
 	# NOTE: with only one simple object file optimizations at link-time are
 	# not really interesting but in future it could.
@@ -90,6 +93,7 @@ opti() {
 		-nostdlib \
 		-Wl,--no-entry \
 		-Wl,--export-all \
+		-Wl,--allow-undefined \
 		-Wl,--lto-O3 \
 		-o game.wasm game.c
 
