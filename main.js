@@ -5,7 +5,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 console.log(ctx);
 
-function draw_rectangle(x, y, w, h) {
+function ext_draw_rectangle(x, y, w, h) {
   ctx.fillStyle = "green";
   ctx.fillRect(x, y, w, h);
 }
@@ -14,13 +14,14 @@ function draw_rectangle(x, y, w, h) {
 // https://developer.mozilla.org/en-US/docs/WebAssembly/JavaScript_interface/instantiateStreaming_static
 const importObject = {
     env: {
-      draw_rectangle,
+      ext_draw_rectangle,
     }
 };
 
 WebAssembly.instantiateStreaming(fetch("./game.wasm"), importObject).then(
   (w) => {
     console.log(w.instance.exports.add(6, 6));
+    w.instance.exports.game_init();
     w.instance.exports.game_loop();
   }
 );
