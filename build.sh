@@ -1,15 +1,18 @@
 #!/bin/sh
 
 usage() {
-	echo "Usage: $0 { step1 | step2 | start | clean }"
-	echo "  step1: generate all intermediate format add.ll, add.o and add.wasm"
-	echo "  step2: produce only the valid wasm module"
+	echo "Usage: $0 { all | opti | start | clean }"
+	echo "  all: generate all intermediate format add.ll, add.o and add.wasm"
+	echo "  opti: produce on optimized wasm module that can be run in browser"
 	echo "  start: build wasm module and start python http server"
 	echo "  clean: remove generated files"
+	echo
+	echo "HINT: use wasm2wat to see the difference between the all and opti"
+	echo "      wasm file"
 	exit 1
 }
 
-step1() {
+all() {
 	# First step: Turn or C code into LLVM IR
 	# Tool: front-end compiler (clang)
 	# Input file: add.c
@@ -67,15 +70,27 @@ step1() {
 	echo "  - add.wasm: a wasm module that can be run in the browser"
 }
 
-step2() {
-	# Put all step1 into one command.
-	# We don't use the standard library so we don't want to link with it.
-	# We are using Wl to pass option to the linker.
+opti() {
+	# Put all all into one command.
+	# Options are:
+	#   - Target wasm32
+	#   - Full optimizations
+	#   - Add metadata for link-time optimizations
+	#   - As we don't use the standard library don't link it.
+	#   - We are using Wl to pass option to the linker.
+	#     - no entry point
+	#     - export all
+	#     - use link-time optimizations
+	# NOTE: with only one simple object file optimizations at link-time are
+	# not really interesting but in future it could.
 	clang \
 		--target=wasm32 \
+		-O3 \
+		-flto \
 		-nostdlib \
 		-Wl,--no-entry \
 		-Wl,--export-all \
+		-Wl,--lto-O3 \
 		-o add.wasm add.c
 
 	echo "This step has generated:"
@@ -88,10 +103,10 @@ if [ $# -eq 0 ]; then
 fi
 
 case "$1" in
-step1) step1 ;;
-step2) step2 ;;
+all) all ;;
+opti) opti ;;
 start)
-	step2
+	opti
 	python3 -m http.server
 	;;
 clean)
