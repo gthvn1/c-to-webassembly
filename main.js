@@ -22,6 +22,5 @@ WebAssembly.instantiateStreaming(fetch("./game.wasm"), importObject).then(
   (w) => {
     console.log(w.instance.exports.add(6, 6));
     w.instance.exports.game_init();
-    w.instance.exports.game_loop();
   }
 );
