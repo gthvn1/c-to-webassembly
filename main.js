@@ -18,9 +18,29 @@ const importObject = {
     }
 };
 
+// We are doing animation using requestAnimationFrame:
+// https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame
+// We are animating the canvas...
+
+let times = 0;
+let wasm = null;
+
+function step(timeStamp) {
+  console.log(timeStamp);
+
+  if (times < 200) {
+    wasm.instance.exports.game_update();
+    wasm.instance.exports.game_render();
+    times = times + 1;
+    window.requestAnimationFrame(step);
+  }
+}
+
 WebAssembly.instantiateStreaming(fetch("./game.wasm"), importObject).then(
   (w) => {
+    wasm = w;
+
     console.log(w.instance.exports.add(6, 6));
     w.instance.exports.game_init();
-  }
-);
+    window.requestAnimationFrame(step);
+  });
