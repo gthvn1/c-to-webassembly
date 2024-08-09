@@ -5,6 +5,7 @@ let wasm = null;
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
+
 console.log(ctx);
 
 function ext_draw_rectangle(x, y, w, h) {
@@ -12,9 +13,38 @@ function ext_draw_rectangle(x, y, w, h) {
   ctx.fillRect(x, y, w, h);
 }
 
-function ext_log(msg) {
-  // TODO: In webassembly we cannot pass string like that...
-  // It looks like we need to pass ptr and size...
+function strlen(mem, ptr) {
+  let len = 0;
+  // We don't expect string to have len greater than 1024 chars
+  while (mem[ptr] != 0 && len < 1024) {
+    len++;
+    ptr++;
+  }
+
+  return len;
+}
+
+function ext_log(msg_ptr) {
+  if (wasm == null) {
+    console.log("wasm is not set");
+    return;
+  }
+
+  // Get all memory from WASM module and convert it as an array of U8
+  const buffer = wasm.instance.exports.memory.buffer;
+  const mem = new Uint8Array(buffer);
+
+  // Get the len of the message (we are expecting the string to be null terminated)
+  const len = strlen(mem, msg_ptr);
+  if (len == 1024) {
+    console.log("end of string not found or string has a size over 1024");
+    return;
+  }
+
+  // We can now get the slice and convert it to the string
+  const slice = new Uint8Array(buffer, msg_ptr, len);
+  const msg = String.fromCharCode(...slice);
+
   console.log(msg)
 }
 
@@ -50,8 +80,6 @@ function step(timeStamp) {
 WebAssembly.instantiateStreaming(fetch("./game.wasm"), importObject).then(
   (w) => {
     wasm = w;
-
-    console.log(w.instance.exports.add(6, 6));
     w.instance.exports.game_init(800, 600);
     window.requestAnimationFrame(step);
   });

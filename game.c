@@ -1,9 +1,6 @@
 // Filename: game.c
-#include "game_external.h"
-
-typedef unsigned int u32;
-
-int add(int a, int b) { return a * a + b; }
+#include "game.h"
+#include "game_ext.h"
 
 struct Game {
   u32 width;
@@ -23,10 +20,12 @@ void game_init(u32 width, u32 height) {
 }
 
 void game_render(void) {
+  ext_log("Game rendered");
   ext_draw_rectangle(game.x, game.y, game.width, game.height);
 }
 
 void game_keydown(int keycode) {
+  ext_log("Game keydowned");
   switch (keycode) {
   case 37: // left
     game.x -= 1;
