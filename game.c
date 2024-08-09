@@ -38,17 +38,18 @@ void game_render(void) {
 
 void game_keydown(int keycode) {
   ext_log("Game keydowned");
+
   switch (keycode) {
-  case 37: // left
+  case Left:
     game.x -= 1;
     break;
-  case 38: // up
+  case Up:
     game.y -= 1;
     break;
-  case 39: // right
+  case Right:
     game.x += 1;
     break;
-  case 40: // down
+  case Down:
     game.y += 1;
     break;
   }
