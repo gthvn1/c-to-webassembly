@@ -5,8 +5,16 @@
 // Functions required by game.c
 void ext_log(char *msg) { printf("log: %s\n", msg); }
 
-void ext_draw_rectangle(int x, int y, int w, int h) {
-  DrawRectangle(x, y, w, h, GREEN);
+void ext_draw_rectangle(int x, int y, int w, int h, int color) {
+  // color is #RRGGBBAA
+  struct Color c = {
+      (color >> 24) & 0xFF,
+      (color >> 16) & 0xFF,
+      (color >> 8) & 0xFF,
+      color & 0xFF,
+  };
+
+  DrawRectangle(x, y, w, h, c);
 }
 
 int main(void) {

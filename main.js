@@ -8,8 +8,14 @@ const ctx = canvas.getContext("2d");
 
 console.log(canvas);
 
-function ext_draw_rectangle(x, y, w, h) {
-  ctx.fillStyle = "green";
+function ext_draw_rectangle(x, y, w, h, color) {
+  // color is #RRGGBBAA so we need to shift it
+  const r = (color >> 24) & 0xFF;
+  const g = (color >> 16) & 0xFF;
+  const b = (color >> 8) & 0xFF;
+  const a = color  & 0xFF;
+
+  ctx.fillStyle = "rgba(" + r + "," + g + "," + b + "," + a + ")";
   ctx.fillRect(x, y, w, h);
 }
 
