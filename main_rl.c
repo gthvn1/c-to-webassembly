@@ -27,6 +27,15 @@ int main(void) {
   game_init(screenWidth, screenHeight);
 
   while (!WindowShouldClose()) {
+    if (IsKeyDown(KEY_RIGHT))
+      game_keydown(Right);
+    if (IsKeyDown(KEY_LEFT))
+      game_keydown(Left);
+    if (IsKeyDown(KEY_UP))
+      game_keydown(Up);
+    if (IsKeyDown(KEY_DOWN))
+      game_keydown(Down);
+
     BeginDrawing();
     game_render();
     EndDrawing();

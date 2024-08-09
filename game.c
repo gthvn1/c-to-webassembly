@@ -37,8 +37,6 @@ void game_render(void) {
 }
 
 void game_keydown(int keycode) {
-  ext_log("Game keydowned");
-
   switch (keycode) {
   case Left:
     game.x -= 1;
