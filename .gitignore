@@ -2,3 +2,5 @@
 game.ll
 game.s
 game.wasm
+game_rl
+raylib-5.0_linux_amd64/
