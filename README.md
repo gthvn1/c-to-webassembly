@@ -10,6 +10,7 @@
 
 - Requirements:
   - llvm
+  - [raylib](https://github.com/raysan5/raylib/releases). We just untar the release in current directory.
 
 - Usage:
 ```sh
