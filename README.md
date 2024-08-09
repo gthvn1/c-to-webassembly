@@ -12,7 +12,7 @@
       - `game_render()`: render the box
       - `game_keydown()`: to be able to move the box
     - To work `game.c` requires functions from `game_ext.h`. These functions can be provided by:
-      - JS: when running in the browser (`main.js`)
+      - JS: when running in the browser (`main_wasm.js`)
       - Raylib: when running as a standalone app (`main_rl.c`)
     - WIP...
 

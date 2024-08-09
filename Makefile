@@ -5,7 +5,7 @@ all: game_rl game.wasm
 run: all
 	python3 -m http.server
 
-# game.wasm is loaded from main.js.
+# game.wasm is loaded from main_wasm.js.
 game.wasm: game.c
 	clang \
 		--target=wasm32 \
