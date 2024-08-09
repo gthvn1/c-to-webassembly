@@ -1,4 +1,4 @@
+*.o
 game.ll
-game.o
 game.s
 game.wasm
