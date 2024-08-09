@@ -11,7 +11,7 @@ function strlen(mem, ptr) {
   return len;
 }
 
-function log_from_js(str_ptr) {
+function logger(str_ptr) {
   // Arg is a ptr to the string in memory
   console.log(str_ptr);
 
@@ -39,12 +39,12 @@ function log_from_js(str_ptr) {
 }
 
 const importObject = {
-  env: { log_from_js },
+  env: { logger },
 };
 
-WebAssembly.instantiateStreaming(fetch("simple_log.wasm"), importObject).then(
+WebAssembly.instantiateStreaming(fetch("simple_logger.wasm"), importObject).then(
   (obj) => {
     wasm = obj;
-    obj.instance.exports.test_log();
+    obj.instance.exports.test_logger();
   },
 );
