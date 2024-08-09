@@ -1,12 +1,12 @@
-# c-to-webassembly
+# C-to-WebAssembly
 
 ## Overview
 
 - We followed the really cool blog from [surma](https://surma.dev/things/c-to-webassembly/)
-  - Step1: (tagged step1)
+  - **Step1**: (tagged step1)
     - First we will understand how we are generating wasm from C
     - Start with a simple function add.c
-  - Step2: (tagged step2)
+  - **Step2**: (tagged step2)
     - Turned our simple function into something more complex that will allow to:
       - move a small box within an area
     - `game.c` is the core of the application.
@@ -20,10 +20,10 @@
     - So we have two ways to run the code:
       - a standalone application that uses [Raylib](https://www.raylib.com/) and that can be run using: `./game_rl`
       - a web application that uses HTML Canvas for rendering. The `game.wasm` is generated from `game.c`.
-  - Step3: (not tagger yet)
-    - Can we only use one C file that uses [Raylib](https://www.raylib.com/) but can also generates a wasm module. In this case function provided by [Raylib](https://www.raylib.com/) will be implemented in the `main_wasm.js`.
-    - This will allows to have the same code for both renders.
-
+  - **Step3**: (not tagger yet)
+    - Can we only use one C file that uses [Raylib](https://www.raylib.com/) but can also generates a wasm module?
+      - In this case function provided by [Raylib](https://www.raylib.com/) will be implemented in the `main_wasm.js`.
+    - This will allow to have the same code for both renders.
 
 ## Requirements
   - llvm: we are using clang for compilation.
