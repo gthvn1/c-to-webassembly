@@ -5,7 +5,6 @@
 #define GAME_EXT_H
 
 void ext_log(char *msg);
-void ext_draw_rectangle(unsigned int x, unsigned int y, unsigned int w,
-                        unsigned int h);
+void ext_draw_rectangle(int x, int y, int w, int h);
 
 #endif /* GAME_EXT_H */

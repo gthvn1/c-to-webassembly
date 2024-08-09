@@ -3,9 +3,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-typedef unsigned int u32;
-
-void game_init(u32 width, u32 height);
+void game_init(int width, int height);
 void game_render(void);
 void game_keydown(int keycode);
 

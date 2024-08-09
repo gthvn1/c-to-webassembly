@@ -6,7 +6,7 @@ let wasm = null;
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-console.log(ctx);
+console.log(canvas);
 
 function ext_draw_rectangle(x, y, w, h) {
   ctx.fillStyle = "green";
@@ -80,6 +80,6 @@ function step(timeStamp) {
 WebAssembly.instantiateStreaming(fetch("./game.wasm"), importObject).then(
   (w) => {
     wasm = w;
-    w.instance.exports.game_init(800, 600);
+    w.instance.exports.game_init(canvas.width, canvas.height);
     window.requestAnimationFrame(step);
   });
