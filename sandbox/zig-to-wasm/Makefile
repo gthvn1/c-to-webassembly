@@ -1,12 +1,9 @@
 .PHONY: all clean run
 
-all: main_fibo fibo.wasm
+all: app_fibo fibo.wasm
 
-main_fibo: main_fibo.zig fibo.o
-	zig build-exe main_fibo.zig fibo.o
-
-fibo.o: fibo.zig
-	zig build-obj -fno-entry -O ReleaseSmall fibo.zig
+app_fibo: app_fibo.zig
+	zig build-exe app_fibo.zig
 
 fibo.wasm: fibo.zig
 	zig build-exe \
@@ -15,8 +12,8 @@ fibo.wasm: fibo.zig
 		-O ReleaseFast \
 		fibo.zig
 
-run: main_fibo
-	./main_fibo
+run: app_fibo
+	./app_fibo
 
 clean:
-	rm -f *.o main_fibo fibo.wasm
+	rm -f *.o app_fibo fibo.wasm

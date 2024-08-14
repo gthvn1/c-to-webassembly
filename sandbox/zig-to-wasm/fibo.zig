@@ -11,7 +11,7 @@ const std = @import("std");
 // As we don't want to allocate buffer we will used fixed sized buffer.
 extern fn loggme(msg: [*:0]const u8) void;
 
-export fn fibo(n: i32) i32 {
+pub export fn fibo(n: i32) i32 {
     const LOGBUFSIZE = 64;
     var logbuf = [_]u8{0} ** LOGBUFSIZE;
 

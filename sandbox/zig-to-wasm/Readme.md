@@ -14,11 +14,11 @@
 - We have:
     - `fibo.zig`: is the naive implementation of fibonacci sequence in Zig
     - This file can be compiled as an object file and called from either:
-        - `main_fibo.zig`: a standalone application in Zig
-        - `fibo.js`: that loads the `fibo.wasm` file generated from the same `fibo.zig` code.
+        - `app_fibo.zig`: a standalone application in Zig
+        - `web_fibo.js`: that loads the `fibo.wasm` file generated from the same `fibo.zig` code.
 
 - You can test is by running `make all`
-    - then run the standalone app: `./main_fibo`
-    - or start a server that loads `fibo.js`: `python3 -m http.server`
+    - then run the standalone app: `./app_fibo`
+    - or start a server that loads `web_fibo.js`: `python3 -m http.server`
         - and look the console log.
 
