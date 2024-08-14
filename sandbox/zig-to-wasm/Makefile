@@ -14,6 +14,7 @@ fibo.wasm: fibo.zig
 
 run: app_fibo
 	./app_fibo
+	node ./web_fibo.js
 
 clean:
 	rm -f *.o app_fibo fibo.wasm
